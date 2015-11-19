@@ -32,7 +32,10 @@ module.exports = yeoman.generators.Base.extend({
       }
     ], function (answers){
       var routeMethod = answers['method'],
-          pathName = answers['path'];
+          pathName = answers['path'],
+          actionName = null,
+          handlerName = null;
+
       //Open services file in config, read it, update data and overwrite dependent files
       fs.readFile(configServicesFilePath, 'utf8', function(err, fileData){
         if(err){
@@ -47,7 +50,9 @@ module.exports = yeoman.generators.Base.extend({
             newFile = "";
           
         newRouteToAdd += "  method: '" + routeMethod + "'\n  ";
-        newRouteToAdd += "  path: '" + pathName + "',\n  }\n};";
+        newRouteToAdd += "  path: '" + pathName + "',\n  ";
+        newRouteToAdd += "  action: " + actionName + ",\n  ";
+        newRouteToAdd += "  handler: " + handlerName + "\n  }\n};";
 
         if(!isRouteConfigEmpty(fileDataParts['insideRouteConfig'])){
           newRouteConfig = newRouteConfig.substring(0, newRouteConfig.lastIndexOf('}')+1)+',\n';
@@ -83,3 +88,8 @@ function findRouteConfig(fileData){
 function isRouteConfigEmpty(fileData){
   return fileData.indexOf('}') === -1;
 }
+
+/* TODO */
+
+// add empty handler
+// add empty action
