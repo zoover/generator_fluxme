@@ -35,13 +35,13 @@ module.exports = yeoman.generators.Base.extend({
       }
 
       var newImportFileLineToAdd = "import " + serviceNameOnImport + " from '../services/" + filename + "';",
-          endOfImportSection = fileData.substr(0, fileData.lastIndexOf("';")+2),
-          afterImportSection = fileData.substr(fileData.lastIndexOf("';")+2),
+          endOfImportSection = fileData.substring(0, fileData.lastIndexOf("';")+2),
+          afterImportSection = fileData.substring(fileData.lastIndexOf("';")+2),
           newRegisterFileLineToAdd = "app.getPlugin('FetchrPlugin').registerService(" + filename + ");\n}",
           registerFunctionSectionToAppend = "";
 
       fileData = endOfImportSection + '\n' + newImportFileLineToAdd + afterImportSection;
-      fileData = registerFunctionSectionToAppend = fileData.substr( 0, fileData.lastIndexOf('}')-1 ) + "\n  " + newRegisterFileLineToAdd;
+      fileData = registerFunctionSectionToAppend = fileData.substring( 0, fileData.lastIndexOf('}')-1 ) + "\n  " + newRegisterFileLineToAdd;
 
       fs.writeFile(configServicesFilePath, fileData, function(err){
         if(err){

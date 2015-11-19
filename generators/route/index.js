@@ -89,7 +89,3 @@ function isRouteConfigEmpty(fileData){
   return fileData.indexOf('}') === -1;
 }
 
-/* TODO */
-
-// add empty handler
-// add empty action
