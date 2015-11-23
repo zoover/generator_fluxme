@@ -28,9 +28,9 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
-      var appName = this.props.appName;
+      var appName = this.appName;
       // copy package json file
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
         { 'appName' : appName }
