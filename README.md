@@ -23,10 +23,24 @@ npm install -g yo
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-To install generator-fluxme from npm, run:
+To install generator-fluxme create a new app folder:
 
 ```bash
-npm install -g generator-fluxme
+npm init
+```
+
+Fill the details, after you complete all steps, open the package.json and add this following line
+
+```bash
+"devDependencies": {
+	"generator-fluxme": "https://abegarciafx@bitbucket.org/webassets/react_fluxible_stack_generator.git"
+}
+```
+
+Install the package with npm
+
+```bash
+npm install
 ```
 
 Finally, initiate the generator:
@@ -49,30 +63,30 @@ It includes a basic setup, code conventions, and we believe that this generator 
 
 The generator includes some basic functions such as:
 
-Generate a new action
+#### Generate a new action
 ```bash
 yo fluxme:action name-of-action
 ```
 
-Generate a new route
+#### Generate a new route
 ```bash
 yo fluxme:route name-of-route
 ```
 It will ask you then what type of route do you prefer (GET,PUT,POST,DELETE) and the path which can be any format in conventions (/test or /test/:id)
 
-Generate a new service
+#### Generate a new service
 ```bash
 yo fluxme:service name-of-service
 ```
 It will update the config file to register this new service
 
-Generate a new store
+#### Generate a new store
 ```bash
 yo fluxme:store name-of-store
 ```
 It will update the config file to register this new store
 
-Generate a new component
+#### Generate a new component
 ```bash
 yo fluxme:component name-of-component
 ```
