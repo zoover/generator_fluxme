@@ -1,11 +1,10 @@
-import sampleListStore from '../stores/sampleListStore';
-import sampleItemStore from '../stores/sampleItemStore';
-import userListStore from '../stores/userListStore';
-import userItemStore from '../stores/userItemStore';
+import {RouteStore} from 'fluxible-router';
+import routes from '../config/routes';
+import SampleStore from '../stores/sampleStore';
+import UserStore from '../stores/userStore';
 
 export default function registerStores(app) {
-  app.registerStore(sampleListStore);
-  app.registerStore(sampleItemStore);
-  app.registerStore(userListStore);
-  app.registerStore(userItemStore);
+  app.registerStore(RouteStore.withStaticRoutes(routes));
+  app.registerStore(SampleStore);
+  app.registerStore(UserStore);
 }

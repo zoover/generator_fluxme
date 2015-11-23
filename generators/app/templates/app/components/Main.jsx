@@ -1,33 +1,40 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import {NavLink} from 'fluxible-router';
 import {handleHistory} from 'fluxible-router';
 import provideContext from 'fluxible-addons-react/provideContext';
 
-let MainComponent = React.createClass({
+let Main = React.createClass({
   propTypes: {
-    currentRoute: React.PropTypes.object.isRequired,
+    currentRoute: React.PropTypes.object,
     context: React.PropTypes.object.isRequired,
+    isNavigateComplete: React.PropTypes.bool
+  },
+  contextTypes: {
+    getStore: React.PropTypes.func.isRequired,
+    executeAction: React.PropTypes.func.isRequired
   },
   render: function() {
-    if (this.props.currentRoute === null) {
-      return false;
-    }
     const Handler = this.props.currentRoute.get('handler');
+    const params = this.props.currentRoute.get('params').toJS();
 
     return (
       <div>
+        <Helmet title="React Fluxible Boilerplate"/>
         <p>
+          React Fluxible Boilerplate menu
+          &nbsp;
           <NavLink routeName="sampleList">Sample list</NavLink>
           &nbsp;
           <NavLink routeName="userList">User list</NavLink>
         </p>
-        <Handler context={this.props.context} />
+        <Handler isLoading={!this.props.isNavigateComplete} {...params}/>
       </div>
     );
-  },
+  }
 });
 
-MainComponent = handleHistory(MainComponent);
-MainComponent = provideContext(MainComponent);
+Main = handleHistory(Main);
+Main = provideContext(Main);
 
-export default MainComponent;
+export default Main;

@@ -28,10 +28,12 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
+      var appName = this.appName;
       // copy package json file
       this.fs.copy(
         this.templatePath('_package.json'),
-        this.destinationPath('package.json')
+        this.destinationPath('package.json'),
+        { 'appName' : appName }
       );
       //copy bower file
       this.fs.copy(

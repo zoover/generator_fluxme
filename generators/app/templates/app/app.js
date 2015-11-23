@@ -1,10 +1,9 @@
 import Fluxible from 'fluxible';
-import {RouteStore} from 'fluxible-router';
-import routes from './config/routes';
 import MainComponent from './components/Main.jsx';
 // Isomorphic restful services plugin - its magic!
 // This will enable to share the same services/api calls between server and client
 import fetchr from 'fluxible-plugin-fetchr';
+import registerStores from './config/stores';
 
 const fetchrInstance = fetchr({
   // Internal name to make the calls,
@@ -12,13 +11,10 @@ const fetchrInstance = fetchr({
   xhrPath: '/api'
 });
 const app = new Fluxible({
-  component: MainComponent,
+  component: MainComponent
 });
 
-import registerStores from './config/stores';
 registerStores(app);
-
-app.registerStore(RouteStore.withStaticRoutes(routes));
 
 // Plug new fetcher instance to the app
 app.plug(fetchrInstance);
