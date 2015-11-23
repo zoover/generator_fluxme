@@ -72,6 +72,7 @@ module.exports = yeoman.generators.Base.extend({
 
     projectfiles: function () {
       this.directory('app', 'app', this.context);
+      this.directory('docs', 'docs', this.context);
     }
   },
 
