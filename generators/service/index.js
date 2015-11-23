@@ -37,7 +37,7 @@ module.exports = yeoman.generators.Base.extend({
       var newImportFileLineToAdd = "import " + serviceNameOnImport + " from '../services/" + filename + "';",
           endOfImportSection = fileData.substring(0, fileData.lastIndexOf("';")+2),
           afterImportSection = fileData.substring(fileData.lastIndexOf("';")+2),
-          newRegisterFileLineToAdd = "app.getPlugin('FetchrPlugin').registerService(" + filename + ");\n}",
+          newRegisterFileLineToAdd = "app.getPlugin('FetchrPlugin').registerService(" + serviceNameOnImport + ");\n}",
           registerFunctionSectionToAppend = "";
 
       fileData = endOfImportSection + '\n' + newImportFileLineToAdd + afterImportSection;
