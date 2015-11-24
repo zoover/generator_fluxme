@@ -1,6 +1,6 @@
 import BaseStore from 'fluxible/addons/BaseStore';
 
-class <%= className %>  extends BaseStore {
+class <%= className %> extends BaseStore {
   constructor(dispatcher) {
     super(dispatcher);
     this.sample = null;

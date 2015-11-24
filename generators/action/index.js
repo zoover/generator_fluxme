@@ -18,7 +18,8 @@ module.exports = yeoman.generators.Base.extend({
 
     this.fs.copy(
       this.templatePath('baseAction.js'),
-      this.destinationPath('app/actions/'+filename+'.js')
+      this.destinationPath('app/actions/'+filename+'.js'),
+      { className: fileName }
     );
   }
 });
