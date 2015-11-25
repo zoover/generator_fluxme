@@ -27,20 +27,7 @@ To install generator-fluxme create a new app folder:
 
 ```bash
 npm init
-```
-
-Fill the details, after you complete all steps, open the package.json and add this following line
-
-```bash
-"devDependencies": {
-	"generator-fluxme": "https://abegarciafx@bitbucket.org/webassets/react_fluxible_stack_generator.git"
-}
-```
-
-Install the package with npm
-
-```bash
-npm install
+npm install "https://<username>@bitbucket.org:webassets/react_fluxible_stack_generator.git" --save-dev
 ```
 
 Finally, initiate the generator:
