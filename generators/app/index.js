@@ -1,8 +1,8 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
-var mkdirp = require('mkdirp');
+var yeoman = require('yeoman-generator'),
+    chalk = require('chalk'),
+    yosay = require('yosay'),
+    mkdirp = require('mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -35,26 +35,28 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('package.json'),
         { 'appName' : appName }
       );
-      //copy bower file
-      this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
-      );
+      console.log(chalk.black.bgGreen.bold('+ Successfully package.json file created'));
+
       // copy webpack file
       this.fs.copy(
         this.templatePath('_webpack.config.js'),
         this.destinationPath('webpack.config.js')
       );
+      console.log(chalk.black.bgGreen.bold('+ Successfully webpack.config.js file created'));
+      
       // copy run file
       this.fs.copy(
         this.templatePath('_run.js'),
         this.destinationPath('run.js')
       );
+      console.log(chalk.black.bgGreen.bold('+ Successfully run.js file created'));
+      
       // copy gulpfile file
       this.fs.copy(
         this.templatePath('_gulpfile.js'),
         this.destinationPath('gulpfile.js')
       );
+      console.log(chalk.black.bgGreen.bold('+ Successfully gulpfile.js file created'));
     },
 
     config: function () {
@@ -63,20 +65,28 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('_.babelrc'),
         this.destinationPath('.babelrc')
       );
+      console.log(chalk.black.bgGreen.bold('+ Successfully .babelrc file created'));
+      
       // copy eslint file
       this.fs.copy(
         this.templatePath('_.eslintrc'),
         this.destinationPath('.eslintrc')
       );
+      console.log(chalk.black.bgGreen.bold('+ Successfully .eslintrc file created'));
+      
     },
 
     projectfiles: function () {
       this.directory('app', 'app', this.context);
+      console.log(chalk.black.bgGreen.bold('+ Successfully app folder created'));
+      
       this.directory('docs', 'docs', this.context);
+      console.log(chalk.black.bgGreen.bold('+ Successfully docs folder created'));
     }
   },
 
   install: function () {
+    console.log(chalk.black.bgYellow.bold('*** Grab some coffee and hold tight, we are going to start installing dependencies ***'));
     this.installDependencies();
   }
 });

@@ -2,7 +2,8 @@
 var yeoman = require('yeoman-generator'),
     camelCase = require('camelcase'),
     upperCamelCase = require('uppercamelcase'),
-    fs = require("fs");
+    fs = require("fs"),
+    chalk = require('chalk');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -12,7 +13,7 @@ module.exports = yeoman.generators.Base.extend({
       desc: 'The component name'
     });
 
-    this.log('You called the Fluxme create component with the file name ' + this.name + '.');
+    this.log(chalk.black.bgWhite('You called the Fluxme create component with the file name ' + this.name + '.'));
   },
 
   writing: function () {
@@ -52,6 +53,8 @@ function copyBaseComponentTemplate(context, fileName){
     context.destinationPath('app/components/_common/' + fileName + '.jsx'),
     { className: fileName }
   );
+  console.log(chalk.black.bgGreen.bold('+ Successfully component file: ' + fileName + ' created!'));
+  console.log(chalk.white.bgMagenta('-- Action file location at => app/components/_common/'+fileName));
 }
 
 function copyBaseViewComponentTemplate(context, fileName, folderName){
@@ -60,4 +63,6 @@ function copyBaseViewComponentTemplate(context, fileName, folderName){
     context.destinationPath('app/components/' + folderName + '/' + fileName + '.jsx'),
     { className: fileName }
   );
+  console.log(chalk.black.bgGreen.bold('+ Successfully view component file: ' + fileName + ' created!'));
+  console.log(chalk.white.bgMagenta('-- Action file location at => app/components/' + folderName + '/' +fileName));
 }

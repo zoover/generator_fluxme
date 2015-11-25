@@ -1,7 +1,8 @@
 'use strict';
 var yeoman = require('yeoman-generator'),
     camelCase = require('camelcase'),
-    fs = require("fs");
+    fs = require("fs"),
+    chalk = require('chalk');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -11,7 +12,7 @@ module.exports = yeoman.generators.Base.extend({
       desc: 'The route name'
     });
 
-    this.log('You called the Fluxme create route with the the file name ' + this.name + '.');
+    this.log(chalk.black.bgWhite('You called the Fluxme create route with the the file name ' + this.name + '.'));
   },
 
   writing: function () {
@@ -54,7 +55,7 @@ module.exports = yeoman.generators.Base.extend({
         newRouteToAdd += "  action: " + actionName + ",\n  ";
         newRouteToAdd += "  handler: " + handlerName + "\n  }\n};";
 
-        if(!isRouteConfigEmpty(fileDataParts['insideRouteConfig'])){
+        if(isRouteConfigNotEmpty(fileDataParts['insideRouteConfig'])){
           newRouteConfig = newRouteConfig.substring(0, newRouteConfig.lastIndexOf('}')+1)+',\n';
         }
 
@@ -63,9 +64,10 @@ module.exports = yeoman.generators.Base.extend({
 
         fs.writeFile(configServicesFilePath, newFile, function(err){
           if(err){
-            console.log(err);
+            console.log(chalk.black.bgRed.bold('** Error while updated route config file !** '+err));
           }
-          console.log('--- config routes file successfully updated! ');
+          console.log(chalk.black.bgGreen.bold('+ Successfully route config file updated!'));
+          console.log(chalk.white.bgMagenta('-- Config routes file location at => app/config/routes'));
         });
       });
     });
@@ -85,7 +87,7 @@ function findRouteConfig(fileData){
   }
 }
 
-function isRouteConfigEmpty(fileData){
-  return fileData.indexOf('}') === -1;
+function isRouteConfigNotEmpty(fileData){
+  return fileData.indexOf('}') !== -1;
 }
 

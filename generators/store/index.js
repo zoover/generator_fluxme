@@ -2,7 +2,8 @@
 var yeoman = require('yeoman-generator'),
     upperCamelCase = require('uppercamelcase'),
     camelCase = require('camelcase'),
-    fs = require("fs");
+    fs = require("fs"),
+    chalk = require('chalk');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -12,45 +13,54 @@ module.exports = yeoman.generators.Base.extend({
       desc: 'The store name'
     });
 
-    this.log('You called the Fluxme create store generator with the file name ' + this.name + '.');
+    this.log(chalk.black.bgWhite('You called the Fluxme create store generator with the file name ' + this.name + '.'));
   },
 
   writing: function () {
     // Proper file and class name format
     var suffix = 'Store',
-        filename = camelCase(this.name)+suffix,
+        fileName = camelCase(this.name)+suffix,
         className = upperCamelCase(this.name)+suffix,
-        configServicesFilePath = this.destinationPath('app/config/stores.js');
+        context = this;
 
     this.fs.copyTpl(
       this.templatePath('baseStore.js'),
-      this.destinationPath('app/stores/'+filename+'.js'),
+      this.destinationPath('app/stores/'+fileName+'.js'),
       { className: className }
     );
-    console.log('--- store file successfully created! ');
+    
+    console.log(chalk.black.bgGreen.bold('+ Successfully store file: ' + fileName + ' created!'));
+    console.log(chalk.white.bgMagenta('-- Action file location at => app/stores/' + fileName));
 
-    // Open services file in config, read it, update data and overwrite dependent files
-    fs.readFile(configServicesFilePath, 'utf8', function(err, fileData){
-      if(err){
-        console.log(err);
-      }
-
-      var newImportFileLineToAdd = "import " + filename + " from '../stores/" + filename + "';",
-          endOfImportSection = fileData.substring(0, fileData.lastIndexOf("';")+2),
-          afterImportSection = fileData.substring(fileData.lastIndexOf("';")+2),
-          newRegisterFileLineToAdd = "app.registerStore(" + filename + ");\n}",
-          registerFunctionSectionToAppend = "";
-
-      fileData = endOfImportSection + '\n' + newImportFileLineToAdd + afterImportSection;
-      fileData = registerFunctionSectionToAppend = fileData.substring( 0, fileData.lastIndexOf('}')-1 ) + "\n  " + newRegisterFileLineToAdd;
-
-      fs.writeFile(configServicesFilePath, fileData, function(err){
-        if(err){
-          console.log(err);
-
-        }
-        console.log('--- config stores file successfully updated! ');
-      });
-    });
+    // Open stores file in config, read it, update data and overwrite dependent files
+    registerStore(context, fileName);
   }
 });
+
+function registerStore(context, fileName){
+  var configServicesFilePath = context.destinationPath('app/config/stores.js');
+  
+  fs.readFile(configServicesFilePath, 'utf8', function(err, fileData){
+    if(err){
+      console.log(chalk.black.bgRed.bold('** Error while reading store config file !** '+err));
+    }
+
+     var newImportFileLineToAdd = "import " + fileName + " from '../stores/" + fileName + "';",
+         endOfImportSection = fileData.substring(0, fileData.lastIndexOf("';")+2),
+         afterImportSection = fileData.substring(fileData.lastIndexOf("';")+2),
+         newRegisterFileLineToAdd = "app.registerStore(" + fileName + ");\n}",
+         registerFunctionSectionToAppend = "";
+
+     fileData = endOfImportSection + '\n' + newImportFileLineToAdd + afterImportSection;
+     fileData = registerFunctionSectionToAppend = fileData.substring( 0, fileData.lastIndexOf('}')-1 ) + "\n  " + newRegisterFileLineToAdd;
+
+     fs.writeFile(configServicesFilePath, fileData, function(err){
+       if(err){
+         console.log(chalk.black.bgRed.bold('** Error while updating store config file !** '+err));
+       }
+       
+       console.log(chalk.black.bgGreen.bold('+ Successfully store config file updated!'));
+       console.log(chalk.white.bgMagenta('-- Config stores file location at => app/config/stores'));
+     });
+   });
+}

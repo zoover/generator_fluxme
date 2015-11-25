@@ -1,4 +1,4 @@
-export default function <%= className %>(context, payload, callback) {
+export default function <%= className %> (context, payload, callback) {
 
   // Inform the store that loading is starting
   //context.dispatch('SAMPLE_ITEM_LOADING', { loading: true });
