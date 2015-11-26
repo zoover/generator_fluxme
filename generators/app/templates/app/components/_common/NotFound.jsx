@@ -1,12 +1,13 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import {t} from '../../config/locale';
 
 const NotFound = React.createClass({
   render: function() {
     return (
       <div>
-        <p>Not Found :(</p>
-        <Helmet title="Not Found" />
+        <p>{t('general.not_found')}</p>
+        <Helmet title={t('general.not_found')} />
       </div>
     );
   }

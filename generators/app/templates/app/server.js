@@ -13,6 +13,8 @@ registerServices(app);
 
 const server = express();
 
+server.use(require('connect-livereload')());
+
 server.use('/fonts', express.static('./build/assets/fonts'));
 server.use('/images', express.static('./build/assets/images'));
 server.use('/scripts', express.static('./build/scripts'));
@@ -41,7 +43,7 @@ server.use(function(req, res, next) {
         markup={renderedBody} />
     );
 
-    res.send(html);
+    res.send('<!DOCTYPE html>\n' + html);
     console.log('React server-side rendered ' + req.url);
   });
 });

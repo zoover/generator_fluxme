@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import connectToStores from 'fluxible-addons-react/connectToStores';
 import ListItem from '../_common/ListItem.jsx';
 import Loader from '../_common/Loader.jsx';
+import {t} from '../../config/locale';
 
 let UserListView = React.createClass({
   propTypes: {
@@ -18,12 +19,10 @@ let UserListView = React.createClass({
 
     return (
       <div>
-        <h1>User List</h1>
+        <h1>{t('users.list')}</h1>
         <Loader isLoading={this.props.loading}>
-          <div>
-            <ul>{this.props.users.map(userRender)}</ul>
-            <Helmet title="User List"/>
-          </div>
+          <ul>{this.props.users.map(userRender)}</ul>
+          <Helmet title={t('users.list')}/>
         </Loader>
       </div>
     );

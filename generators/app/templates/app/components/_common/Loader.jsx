@@ -1,14 +1,12 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import {t} from '../../config/locale';
 
 const Loader = React.createClass({
 
   propTypes: {
     isLoading: React.PropTypes.bool.isRequired,
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.arrayOf(React.PropTypes.object)
-    ])
+    children: React.PropTypes.node
   },
   getDefaultProps: function() {
     return {
@@ -16,11 +14,17 @@ const Loader = React.createClass({
     };
   },
   render: function() {
-    return !this.props.isLoading ? this.props.children
-      : (
+    if (this.props.isLoading) {
+      return (
+        <div>
+          <p>{t('general.loading')}</p>
+          <Helmet title={t('general.loading')}/>
+        </div>
+      );
+    }
+    return (
       <div>
-        <p>Loading ...</p>
-        <Helmet title="Loading ..."/>
+        {this.props.children}
       </div>
     );
   }

@@ -1,5 +1,4 @@
 module.exports = {
-
   entry: './app/client.js',
   output: {
     filename: 'bundle.js',
@@ -7,6 +6,7 @@ module.exports = {
   },
   module: {
     loaders: [
+      // will test all .jsx and .js files using babel to compile ES6 to ES5
       {
         test: /\.jsx?$/,
         loader: 'babel',

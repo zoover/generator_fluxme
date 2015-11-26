@@ -1,27 +1,20 @@
+import actions from '../config/actions';
 import BaseStore from 'fluxible/addons/BaseStore';
 
 class UserStore extends BaseStore {
   constructor(dispatcher) {
     super(dispatcher);
-    this.users = new Map();
+    this._setUsers([]);
   }
 
-  loadUsers(payload) {
-    payload.users.map((user) => {
-      this.addUpdateUser(user);
-    });
+  loadUsersHandler(payload) {
+    this._addUsers(payload.users);
     this.emitChange();
   }
 
-  loadUser(payload) {
-    this.loadUsers({users: [payload.user]});
-  }
-
-  addUpdateUser(user) {
-    // more complicated behaviour could be added here,
-    // e.g. compare the properties of the old user with
-    // the new one, if an old one exists
-    this.users.set(user.login, user);
+  loadUserHandler(payload) {
+    this._addUsers([payload.user]);
+    this.emitChange();
   }
 
   getAll() {
@@ -34,19 +27,30 @@ class UserStore extends BaseStore {
 
   dehydrate() {
     return {
-      users: this.users
+      users: this.getAll()
     };
   }
 
   rehydrate(state) {
-    this.users = new Map(state.users);
+    this._setUsers(state.users);
+  }
+
+  _setUsers(usersArray) {
+    this.users = new Map();
+    this._addUsers(usersArray);
+  }
+
+  _addUsers(usersArray) {
+    usersArray.map((user) => {
+      this.users.set(user.login, user);
+    });
   }
 }
 
 UserStore.storeName = 'UserStore';
 UserStore.handlers = {
-  'USER_LIST_LOADED': 'loadUsers',
-  'USER_ITEM_LOADED': 'loadUser'
+  [actions.USER_LIST_LOADED]: 'loadUsersHandler',
+  [actions.USER_ITEM_LOADED]: 'loadUserHandler'
 };
 
 export default UserStore;

@@ -4,6 +4,7 @@ import {NavLink} from 'fluxible-router';
 import connectToStores from 'fluxible-addons-react/connectToStores';
 import Loader from '../_common/Loader.jsx';
 import NotFound from '../_common/NotFound.jsx';
+import {t} from '../../config/locale';
 
 let SampleItemView = React.createClass({
   propTypes: {
@@ -18,7 +19,7 @@ let SampleItemView = React.createClass({
       content = (
         <div>
           <h2>{this.props.sample.name}</h2>
-          <p>Sample ID: {this.props.sample.id}</p>
+          <p>{t('samples.id')}: {this.props.sample.id}</p>
           <Helmet title={this.props.sample.name}/>
         </div>
       );
@@ -28,14 +29,14 @@ let SampleItemView = React.createClass({
         <Loader isLoading={this.props.loading}>
           {content}
         </Loader>
-        <NavLink routeName="sampleList">Back to sample list</NavLink>
+        <NavLink routeName="sampleList">{t('samples.back_to_list')}</NavLink>
       </div>
     );
   }
 });
 
 SampleItemView = connectToStores(SampleItemView, ['SampleStore'], (context, props) => ({
-  sample: context.getStore('SampleStore').getById(parseInt(props.id)),
+  sample: context.getStore('SampleStore').getById(parseInt(props.id, 10)),
   loading: props.isLoading
 }));
 

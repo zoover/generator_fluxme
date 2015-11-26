@@ -74,6 +74,12 @@ module.exports = yeoman.generators.Base.extend({
       );
       console.log(chalk.black.bgGreen.bold('+ Successfully .eslintrc file created'));
       
+      // copy gitignore file
+      this.fs.copy(
+        this.templatePath('_.gitignore'),
+        this.destinationPath('.gitignore')
+      );
+      console.log(chalk.black.bgGreen.bold('+ Successfully .gitignore file created'));
     },
 
     projectfiles: function () {

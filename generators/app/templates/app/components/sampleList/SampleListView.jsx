@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import connectToStores from 'fluxible-addons-react/connectToStores';
 import ListItem from '../_common/ListItem.jsx';
 import Loader from '../_common/Loader.jsx';
+import {t} from '../../config/locale';
 
 let SampleListView = React.createClass({
   propTypes: {
@@ -18,12 +19,10 @@ let SampleListView = React.createClass({
 
     return (
       <div>
-        <h1>Sample List</h1>
+        <h1>{t('samples.list')}</h1>
         <Loader isLoading={this.props.loading}>
-          <div>
-            <ul>{this.props.samples.map(sampleRender)}</ul>
-            <Helmet title="Sample List"/>
-          </div>
+          <ul>{this.props.samples.map(sampleRender)}</ul>
+          <Helmet title={t('samples.list')}/>
         </Loader>
       </div>
     );
