@@ -20,6 +20,7 @@
     "eslint": "^1.8.0",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.7.1",
+    "generator-fluxme": "git@bitbucket.org:webassets/react_fluxible_stack_generator.git",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-change": "^1.0.0",
