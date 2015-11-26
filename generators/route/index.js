@@ -50,7 +50,7 @@ module.exports = yeoman.generators.Base.extend({
             fileEnd = fileDataParts['afterRouteConfig'],
             newFile = "";
           
-        newRouteToAdd += "  method: '" + routeMethod + "'\n  ";
+        newRouteToAdd += "  method: '" + routeMethod + ",'\n  ";
         newRouteToAdd += "  path: '" + pathName + "',\n  ";
         newRouteToAdd += "  action: " + actionName + ",\n  ";
         newRouteToAdd += "  handler: " + handlerName + "\n  }\n};";
