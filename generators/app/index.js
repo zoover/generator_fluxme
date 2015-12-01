@@ -57,6 +57,13 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('gulpfile.js')
       );
       console.log(chalk.black.bgGreen.bold('+ Successfully gulpfile.js file created'));
+      
+      // copy test file
+      this.fs.copy(
+        this.templatePath('_tests.js'),
+        this.destinationPath('tests.js')
+      );
+      console.log(chalk.black.bgGreen.bold('+ Successfully test.js file created'));
     },
 
     config: function () {
@@ -82,6 +89,9 @@ module.exports = yeoman.generators.Base.extend({
       
       this.directory('docs', 'docs', this.context);
       console.log(chalk.black.bgGreen.bold('+ Successfully docs folder created'));
+      
+      this.directory('tests', 'tests', this.context);
+      console.log(chalk.black.bgGreen.bold('+ Successfully tests folder created'));
     }
   },
 

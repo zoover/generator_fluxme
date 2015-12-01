@@ -34,6 +34,8 @@ module.exports = yeoman.generators.Base.extend({
 
     // Open stores file in config, read it, update data and overwrite dependent files
     registerStore(context, fileName);
+    // Create store additional testing
+    createStoreTest(context, fileName, className);
   }
 });
 
@@ -63,4 +65,17 @@ function registerStore(context, fileName){
        console.log(chalk.white.bgMagenta('-- Config stores file location at => app/config/stores'));
      });
    });
+}
+
+function createStoreTest(context, fileName, className){
+  var testSuffix = 'Test';
+  
+  context.fs.copyTpl(
+    context.templatePath('baseStoreTest.js'),
+    context.destinationPath('tests/unit/'+fileName+testSuffix+'.js'),
+    { storeClassName: className, storeFileName: fileName }
+  );
+  
+  console.log(chalk.black.bgGreen.bold('+ Successfully store test file: ' + fileName + testSuffix +' created!'));
+  console.log(chalk.white.bgMagenta('-- Action file location at => tests/unit/' + fileName + testSuffix));
 }

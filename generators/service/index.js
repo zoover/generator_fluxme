@@ -42,7 +42,7 @@ function registerService(context, fileName, serviceNameOnImport){
   fs.readFile(configServicesFilePath, 'utf8', function(err, fileData){
     if(err){
       console.log(chalk.black.bgRed.bold('** Error while reading services config file !** '+err));
-     }
+    }
 
      var newImportFileLineToAdd = "import " + serviceNameOnImport + " from '../services/" + fileName + "';",
          endOfImportSection = fileData.substring(0, fileData.lastIndexOf("';")+2),

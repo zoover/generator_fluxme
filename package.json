@@ -24,11 +24,13 @@
     "camelcase": "^2.0.0",
     "chalk": "^1.0.0",
     "mkdirp": "^0.5.1",
+    "snake-case": "^1.1.1",
     "uppercamelcase": "^1.1.0",
     "yeoman-generator": "^0.19.0",
     "yosay": "^1.0.2"
   },
   "devDependencies": {
+    "bitbucket-api": "0.0.7",
     "mocha": "*"
   }
 }

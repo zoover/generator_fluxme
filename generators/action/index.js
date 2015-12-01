@@ -1,7 +1,10 @@
 'use strict';
 var yeoman = require('yeoman-generator'),
     camelCase = require('camelcase'),
-    chalk = require('chalk');
+    fs = require("fs"),
+    snakeCase = require('snake-case'),
+    chalk = require('chalk'),
+    eventGenerator = require('../../utils/events.js');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -15,7 +18,8 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   writing: function () {
-    var fileName = camelCase(this.name);
+    var fileName = camelCase(this.name),
+        context = this;
 
     // Copy base action template to destination folder with filename variable which will be replace
     // at runtime 
@@ -27,5 +31,26 @@ module.exports = yeoman.generators.Base.extend({
     
     console.log(chalk.black.bgGreen.bold('+ Successfully action file: ' + fileName + ' created!'));
     console.log(chalk.white.bgMagenta('-- Action file location at => app/actions/'+fileName));
+  
+    this.prompt({
+      type: 'confirm',
+      name: 'withEvent',
+      message: 'Would you like to add a dispatch event to the current action?',
+      default: true,
+    }, function (answers){
+      var withEvent = answers['withEvent'];
+      
+      if(withEvent){
+        context.prompt({
+          type: 'input',
+          name: 'eventName',
+          message: 'What is the event name?'
+        }, function(answers){
+          var eventName = snakeCase(answers['eventName']).toUpperCase();
+          
+          eventGenerator.addEvent(context, eventName);
+        }); 
+      }
+    });
   }
 });

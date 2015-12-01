@@ -55,6 +55,12 @@ The generator includes some basic functions such as:
 yo fluxme:action name-of-action
 ```
 
+#### Generate a new action event
+```bash
+yo fluxme:action name-of-event
+```
+It will just update the config event file
+
 #### Generate a new route
 ```bash
 yo fluxme:route name-of-route

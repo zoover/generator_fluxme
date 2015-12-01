@@ -10,6 +10,7 @@ const fs = require('fs');
 const realFavicon = require('gulp-real-favicon');
 const path = require('path');
 const change = require('gulp-change');
+const test = require('./tests.js'); // testing configuration
 
 const config = {
   app_name: 'React Stack Boilerplate',
