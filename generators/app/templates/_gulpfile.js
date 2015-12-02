@@ -160,6 +160,7 @@ gulp.task('dev-server', function() {
       });
     }
     checkServerUp();
+  });
 });
 
 

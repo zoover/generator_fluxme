@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import StoreToTest from '../../app/stores/userStore';
 import {MockDispatcher} from '../utils/storeMocks';
-import actions from '../../app/config/actions';
+import actions from '../../app/config/events';
 
 describe('userStore', function() {
   let store;  // store = SystemUnderTest
