@@ -49,7 +49,7 @@ gulp.task('test', function(callback) {
  * Run unit tests
  */
 gulp.task('test:run', function() {
-  return gulp.src(TEST_FILES, {read: false})
+  gulp.src(TEST_FILES, {read: false})
     .pipe(mocha({
       require: ['./node_modules/jsdom/lib/jsdom'] // Prepare environement for React/JSX testing
     }));
@@ -82,15 +82,17 @@ gulp.task('tdd', function() {
 
 gulp.task('test-server:start', function(callback) {
   testServer.start();
-  // Check availability of port 3000, to determine if server is up
-  const interval = setInterval(function() {
+  // Check availability of port 8888, to determine if server is up
+  function checkServerUp() {
     portInService(8888, function(up) {
       if (up) {
-        clearInterval(interval);
         callback();
+      } else {
+        setTimeout(checkServerUp, 100);
       }
     });
-  }, 100);
+  }
+  checkServerUp();
 });
 
 gulp.task('test-server:stop', function() {

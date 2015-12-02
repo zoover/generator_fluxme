@@ -8,21 +8,12 @@ const userItem = {
     request
       .get('https://api.github.com/users/' + params.id)
       .end(function(err, response) {
-        console.log('Service ---- getting github user item');
-        if (!err) {
-          callback(null, response.body);
-        } else {
-          console.log(err);
-          console.error('Service Fail ---- getting github user item');
-        }
+        callback(err, response.body);
       });
   }
+  // create: function(req, resource, params, body, config, callback) {},
+  // update: function(req, resource, params, body, config, callback) {},
+  // delete: function(req, resource, params, config, callback) {}
 };
 
 export default userItem;
-
-// CRUD options examples
-// read: function(req, resource, params, config, callback) {],
-// create: function(req, resource, params, body, config, callback) {},
-// update: function(req, resource, params, body, config, callback) {},
-// delete: function(req, resource, params, config, callback) {}

@@ -1,5 +1,7 @@
 const sampleItem = {
+  // Name param is required
   name: 'sampleItem',
+  // CRUD methods below
   read: function(req, resource, params, config, callback) {
     const id = parseInt(params.id, 10);
     let sample;
@@ -21,6 +23,9 @@ const sampleItem = {
     }
     callback(null, sample);
   }
+  // create: function(req, resource, params, body, config, callback) {},
+  // update: function(req, resource, params, body, config, callback) {},
+  // delete: function(req, resource, params, config, callback) {}
 };
 
 export default sampleItem;

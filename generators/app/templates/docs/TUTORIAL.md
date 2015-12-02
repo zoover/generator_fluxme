@@ -11,8 +11,7 @@ So, you're probably here because you want to know how this boilerplate for an is
 
 ### Introduction ###
 
-When you start building an application, let alone an isomorphic one, things get complicated pretty fast. Thus we decided to build ourselves a nice and compact boilerplate, containing the
-bare minimum for our project, but with most of the problems already solved and the code organized in a pretty way.
+When you start building an application, let alone an isomorphic one, things get complicated pretty fast. Thus we decided to build ourselves a nice and compact boilerplate, containing the bare minimum for our project, but with most of the problems already solved and the code organized in a pretty way.
 
 Let's start by setting up the basic stuff we need to transpile/concatenate/build our code first.
 
@@ -20,7 +19,7 @@ Let's start by setting up the basic stuff we need to transpile/concatenate/build
 
 Gulp is an npm library that can run automated tasks. For example copying javascript or css to a build folder, transpiling ES6 to ES5, watching files to see if they changed an trigger an action when they are etc. etc.
 
-Open the gulpfiles.js, it contains everything you need to know. On the top we load dependencies and define some config settings (mainly locations of source and destination foldes/files). After that we start describing tasks. For our application we need to do the following stuff. You can run them manually by using `gulp <taskname>`.
+Open the gulpfile.js, it contains everything you need to know. On the top we load dependencies and define some config settings (mainly locations of source and destination foldes/files). After that we start describing tasks. For our application we need to do the following stuff. You can run them manually by using `gulp <taskname>`.
 
 #### Tasks that are stand-alone ####
 * process-scripts: convert and bundle ES6 javascript to ES5 using Webpack (see next chapter), so every browser can interpret our javascript code
@@ -54,15 +53,24 @@ We then setup a server using express and link our build folder to the public fol
 
 #### Isomorphic application handling requests ####
 
-So in this application we'll first render some html on the server and send this to the client. Whenever all the assets in the client are loaded it will sync up with the response from the server and, if everything is working fine, the client will take over from  there.
+So in this application we'll first render some html on the server and send this to the client. Whenever all the assets in the client are loaded it will sync up with the response from the server and, if everything is working fine, the client will take over from there.
 
 First we need to make the context of our app available to use on the server. App.createContext() will provide isolation of stores, dispatches and other data so that no information is shared between different requests on the server side. It will create a context for just this one request. Then we'll make the ActionContext of the app available. This provides access to functions that should be called from actions (dispatch, executeAction, getStore).
 
 Then the magic happens. We use the requested url to kick off the actions belonging to that url. These actions are defined in routes.js. We will then create the "exposed" variable, which we will add as a string in the html response from the server. Later on, the client can use this string to rehydrate it's store with the data that the server already processed in the initial request. In other words, this is the state that's created on the server and it will be loaded into the client when the client takes over.
 
-We'll then create the full html return, using ReactDomserver.renderToStaticMarkup. This function will create html content with all of the components translated to html. Inside the LayoutComponent we add four parameters:
+We'll then create the full html return, using ReactDomserver.renderToStaticMarkup. This function will create html content with all of the components translated to html without using a DOM (cause there is no DOM on the server). Inside the LayoutComponent we add three parameters:
 
-* title: the title of the page
 * state: the string with the state of the app that was rendered on the serverside
 * context: the context of the app
 * markup: the actual html that was rendered by our render-funtions inside the components
+
+#### Client taking over from server ####
+
+So we've done a request and now the client will take over. What happens? Let's have a look at client.js. (FYI: this is the entrypoint for our client bundle, see webpack.config.js)
+
+Remember what we explained in the previous chapter, the state of the application from the serverside is parsed inside the html return. You can find it in window.app if you look at the source code. This state is passed to a variable called dehydratedState and is then rehydrated into the app. The client will then try to render this application into the mountnode and compare the results with the server-rendered DOM. If everything matches, React will mount itself on top and attach client-side event handlers. From here on the client will take over.
+
+### And now? ###
+
+Start writing components, stores, actions and stuff using Fluxible with React! There are some generic components, stores and actions that you can use to get a feel for it :)

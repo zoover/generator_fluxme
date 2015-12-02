@@ -57,8 +57,7 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('gulpfile.js')
       );
       console.log(chalk.black.bgGreen.bold('+ Successfully gulpfile.js file created'));
-      
-      // copy test file
+
       this.fs.copy(
         this.templatePath('_test.js'),
         this.destinationPath('test.js')
@@ -81,6 +80,12 @@ module.exports = yeoman.generators.Base.extend({
       );
       console.log(chalk.black.bgGreen.bold('+ Successfully .eslintrc file created'));
       
+      // copy gitignore file
+      this.fs.copy(
+        this.templatePath('_.gitignore'),
+        this.destinationPath('.gitignore')
+      );
+      console.log(chalk.black.bgGreen.bold('+ Successfully .gitignore file created'));
     },
 
     projectfiles: function () {

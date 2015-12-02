@@ -1,27 +1,20 @@
+import events from '../config/events';
 import BaseStore from 'fluxible/addons/BaseStore';
 
 class SampleStore extends BaseStore {
   constructor(dispatcher) {
     super(dispatcher);
-    this.samples = new Map();
+    this._setSamples([]);
   }
 
-  loadSamples(payload) {
-    payload.samples.map((sample) => {
-      this.addUpdateSample(sample);
-    });
+  loadSamplesHandler(payload) {
+    this._addSamples(payload.samples);
     this.emitChange();
   }
 
-  loadSample(payload) {
-    this.loadSamples({samples: [payload.sample]});
-  }
-
-  addUpdateSample(sample) {
-    // more complicated behaviour could be added here,
-    // e.g. compare the properties of the old sample with
-    // the new one, if an old one exists
-    this.samples.set(sample.id, sample);
+  loadSampleHandler(payload) {
+    this._addSamples([payload.sample]);
+    this.emitChange();
   }
 
   getAll() {
@@ -34,19 +27,30 @@ class SampleStore extends BaseStore {
 
   dehydrate() {
     return {
-      samples: this.samples
+      samples: this.getAll()
     };
   }
 
   rehydrate(state) {
-    this.samples = new Map(state.samples);
+    this._setSamples(state.samples);
+  }
+
+  _setSamples(samplesArray) {
+    this.samples = new Map();
+    this._addSamples(samplesArray);
+  }
+
+  _addSamples(samplesArray) {
+    samplesArray.map((sample) => {
+      this.samples.set(sample.id, sample);
+    });
   }
 }
 
 SampleStore.storeName = 'SampleStore';
 SampleStore.handlers = {
-  'SAMPLE_LIST_LOADED': 'loadSamples',
-  'SAMPLE_ITEM_LOADED': 'loadSample'
+  [events.SAMPLE_LIST_LOADED]: 'loadSamplesHandler',
+  [events.SAMPLE_ITEM_LOADED]: 'loadSampleHandler'
 };
 
 export default SampleStore;

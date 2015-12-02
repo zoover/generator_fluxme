@@ -1,7 +1,6 @@
 import {expect} from 'chai';
 import <%= storeClassName %> from '../../app/stores/<%= storeFileName %>';
 import {MockDispatcher} from '../utils/storeMocks';
-import actions from '../../app/config/actions';
 
 describe('<%= storeClassName %>', function() {
   let sut;  // store = SystemUnderTest
