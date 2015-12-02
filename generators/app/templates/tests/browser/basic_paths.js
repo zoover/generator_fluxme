@@ -1,6 +1,6 @@
 const Browser = require('zombie');
 
-const browser = new Browser({site: 'http://localhost:3000'});
+const browser = new Browser({site: 'http://localhost:8888'});
 
 describe('User visits home page', function() {
   before(function(done) {

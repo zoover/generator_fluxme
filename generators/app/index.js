@@ -60,8 +60,8 @@ module.exports = yeoman.generators.Base.extend({
       
       // copy test file
       this.fs.copy(
-        this.templatePath('_tests.js'),
-        this.destinationPath('tests.js')
+        this.templatePath('_test.js'),
+        this.destinationPath('test.js')
       );
       console.log(chalk.black.bgGreen.bold('+ Successfully test.js file created'));
     },

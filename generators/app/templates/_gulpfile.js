@@ -10,7 +10,11 @@ const fs = require('fs');
 const realFavicon = require('gulp-real-favicon');
 const path = require('path');
 const change = require('gulp-change');
-const test = require('./tests.js'); // testing configuration
+const gls = require('gulp-live-server');
+const portInService = require('port-in-service');
+
+require('./test.js');
+
 
 const config = {
   app_name: 'React Stack Boilerplate',
@@ -31,8 +35,6 @@ const config = {
   },
 };
 
-// Task for processing javascript. Uses webpack and webpack.config.js to create
-// a single javascript bundle for the client-side and to ES6 to ES5 using babel.
 gulp.task('process-scripts', function(callback) {
   webpack(webpackConfig, function() {
     callback();
@@ -136,6 +138,32 @@ gulp.task('process-favicon', function(done) {
   });
 });
 
+
+// Serve, watch and reload
+gulp.task('dev-server', function() {
+  // Start the server at the beginning of the task
+  const server = gls.new('run.js');
+  server.start();
+
+  gulp.watch('build/**/*', function(file) {
+    // Restart Express server
+    server.start.bind(server)();
+
+    // Check availability of port 3000, to determine if server is up
+    function checkServerUp() {
+      portInService(3000, function(up) {
+        if (up) {
+          server.notify.apply(server, [file]);
+        } else {
+          setTimeout(checkServerUp, 100);
+        }
+      });
+    }
+    checkServerUp();
+  });
+});
+
+
 // Task that watches if any of the files inside a certain directory have changed.
 // If so, kick off the corresponding task to make sure everything in the build folder
 // is up-to-date.
@@ -154,5 +182,5 @@ gulp.task('build', function(callback) {
 
 // Default tasks that are executed when you enter gulp in the command line.
 gulp.task('default', function(callback) {
-  runSequence('build', 'lint-scripts', 'watch', callback);
+  runSequence('build', 'lint-scripts', 'dev-server', 'watch', callback);
 });
