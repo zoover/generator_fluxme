@@ -1,4 +1,4 @@
-import actions from '../config/actions';
+import events from '../config/events';
 import BaseStore from 'fluxible/addons/BaseStore';
 
 class UserStore extends BaseStore {
@@ -49,8 +49,8 @@ class UserStore extends BaseStore {
 
 UserStore.storeName = 'UserStore';
 UserStore.handlers = {
-  [actions.USER_LIST_LOADED]: 'loadUsersHandler',
-  [actions.USER_ITEM_LOADED]: 'loadUserHandler'
+  [events.USER_LIST_LOADED]: 'loadUsersHandler',
+  [events.USER_ITEM_LOADED]: 'loadUserHandler'
 };
 
 export default UserStore;

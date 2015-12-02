@@ -1,8 +1,9 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import connectToStores from 'fluxible-addons-react/connectToStores';
-import ListItem from '../_common/ListItem.jsx';
+import Title from '../_common/Title.jsx';
 import Loader from '../_common/Loader.jsx';
+import SampleList from './SampleList.jsx';
 import {t} from '../../config/locale';
 
 let SampleListView = React.createClass({
@@ -11,18 +12,12 @@ let SampleListView = React.createClass({
     loading: React.PropTypes.bool.isRequired
   },
   render: function() {
-    const sampleRender = (sample) => {
-      return (
-        <ListItem key={sample.id} route="sampleItem" id={sample.id} name={sample.name}/>
-      );
-    };
-
     return (
       <div>
-        <h1>{t('samples.list')}</h1>
+        <Helmet title={t('samples.list')}/>
+        <Title>{t('samples.list')}</Title>
         <Loader isLoading={this.props.loading}>
-          <ul>{this.props.samples.map(sampleRender)}</ul>
-          <Helmet title={t('samples.list')}/>
+          <SampleList samples={this.props.samples}/>
         </Loader>
       </div>
     );

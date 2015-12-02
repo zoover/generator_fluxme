@@ -4,6 +4,7 @@ import {NavLink} from 'fluxible-router';
 import connectToStores from 'fluxible-addons-react/connectToStores';
 import Loader from '../_common/Loader.jsx';
 import NotFound from '../_common/NotFound.jsx';
+import Title from '../_common/Title.jsx';
 import {t} from '../../config/locale';
 
 let SampleItemView = React.createClass({
@@ -18,7 +19,7 @@ let SampleItemView = React.createClass({
     } else {
       content = (
         <div>
-          <h2>{this.props.sample.name}</h2>
+          <Title>{this.props.sample.name}</Title>
           <p>{t('samples.id')}: {this.props.sample.id}</p>
           <Helmet title={this.props.sample.name}/>
         </div>

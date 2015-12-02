@@ -1,4 +1,4 @@
-import actions from '../config/actions';
+import events from '../config/events';
 import BaseStore from 'fluxible/addons/BaseStore';
 
 class SampleStore extends BaseStore {
@@ -49,8 +49,8 @@ class SampleStore extends BaseStore {
 
 SampleStore.storeName = 'SampleStore';
 SampleStore.handlers = {
-  [actions.SAMPLE_LIST_LOADED]: 'loadSamplesHandler',
-  [actions.SAMPLE_ITEM_LOADED]: 'loadSampleHandler'
+  [events.SAMPLE_LIST_LOADED]: 'loadSamplesHandler',
+  [events.SAMPLE_ITEM_LOADED]: 'loadSampleHandler'
 };
 
 export default SampleStore;

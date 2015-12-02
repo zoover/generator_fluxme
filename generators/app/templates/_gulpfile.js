@@ -13,6 +13,9 @@ const change = require('gulp-change');
 const gls = require('gulp-live-server');
 const portInService = require('port-in-service');
 
+require('./test.js');
+
+
 const config = {
   app_name: 'React Stack Boilerplate',
   paths: {
@@ -32,8 +35,6 @@ const config = {
   },
 };
 
-// Task for processing javascript. Uses webpack and webpack.config.js to create
-// a single javascript bundle for the client-side and to ES6 to ES5 using babel.
 gulp.task('process-scripts', function(callback) {
   webpack(webpackConfig, function() {
     callback();
@@ -149,16 +150,16 @@ gulp.task('dev-server', function() {
     server.start.bind(server)();
 
     // Check availability of port 3000, to determine if server is up
-    const interval = setInterval(function() {
+    function checkServerUp() {
       portInService(3000, function(up) {
         if (up) {
-          clearInterval(interval);
-          // Reload browser
           server.notify.apply(server, [file]);
+        } else {
+          setTimeout(checkServerUp, 100);
         }
       });
-    }, 100);
-  });
+    }
+    checkServerUp();
 });
 
 

@@ -6,6 +6,7 @@ import provideContext from 'fluxible-addons-react/provideContext';
 import Container from './_common/Container.jsx';
 import Row from './_common/Row.jsx';
 import Col from './_common/Col.jsx';
+import Title from './_common/Title.jsx';
 import {t} from '../config/locale';
 
 let Main = React.createClass({
@@ -29,7 +30,7 @@ let Main = React.createClass({
             title={t('general.title')}
             meta={[{name: 'description', content: t('general.description')}]} />
           <Col width="sm-6">
-            <h1>{t('general.title')}</h1>
+            <Title>{t('general.title')}</Title>
             <ul>
               <li><NavLink routeName="sampleList">{t('samples.list')}</NavLink></li>
               <li><NavLink routeName="userList">{t('users.list')}</NavLink></li>

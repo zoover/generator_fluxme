@@ -4,3 +4,5 @@ build
 .sass-cache
 npm-debug.log
 .idea
+karma.conf.js
+selServ

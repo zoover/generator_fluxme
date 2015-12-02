@@ -8,21 +8,12 @@ const userList = {
     request
       .get('https://api.github.com/users')
       .end(function(err, response) {
-        console.log('Service ---- getting github user list');
-        if (!err) {
-          callback(null, response.body);
-        } else {
-          console.log(err);
-          console.error('Service Fail ---- getting github user list');
-        }
+        callback(err, response.body);
       });
   }
+  // create: function(req, resource, params, body, config, callback) {},
+  // update: function(req, resource, params, body, config, callback) {},
+  // delete: function(req, resource, params, config, callback) {}
 };
 
 export default userList;
-
-// CRUD options examples
-// read: function(req, resource, params, config, callback) {],
-// create: function(req, resource, params, body, config, callback) {},
-// update: function(req, resource, params, body, config, callback) {},
-// delete: function(req, resource, params, config, callback) {}
