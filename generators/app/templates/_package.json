@@ -42,7 +42,6 @@
     "port-in-service": "0.0.1",
     "run-sequence": "^1.1.4",
     "webpack": "^1.12.3",
-    "generator-fluxme": "git@bitbucket.org:webassets/react_fluxible_stack_generator.git",
     "zombie" : "^4.2.1"
   },
   "dependencies": {

@@ -23,14 +23,13 @@ npm install -g yo
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-To install generator-fluxme create a new app folder:
+To install generator-fluxme:
 
 ```bash
-npm init
-npm install "git+ssh://git@bitbucket.org:webassets/react_fluxible_stack_generator.git" --save-dev
+npm install -g generator-fluxme
 ```
 
-Finally, initiate the generator:
+Create your project folder and finally, initiate the generator:
 
 ```bash
 yo fluxme
