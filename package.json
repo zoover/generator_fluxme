@@ -1,7 +1,7 @@
 {
   "name": "generator-fluxme",
-  "version": "0.0.0",
-  "description": "Yeoman generator",
+  "version": "0.0.1",
+  "description": "React and Fluxible generator",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "abfx/generator-fluxme",
@@ -17,7 +17,11 @@
     "generators"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator", 
+    "react",
+    "fluxible",
+    "gulp",
+    "webpack"
   ],
   "dependencies": {
     "ast-query": "^1.0.1",
@@ -30,7 +34,6 @@
     "yosay": "^1.0.2"
   },
   "devDependencies": {
-    "bitbucket-api": "0.0.7",
     "mocha": "*"
   }
 }
