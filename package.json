@@ -1,14 +1,14 @@
 {
   "name": "generator-fluxme",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React and Fluxible generator",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "abfx/generator-fluxme",
+  "repository": "zoover/generator_fluxme",
   "author": {
-    "name": "abFx",
-    "email": "ab.garcia@outlook.com",
-    "url": "https://github.com/abFx"
+    "name": "The zoover team",
+    "email": "a.garcia@zoover.nl",
+    "url": "https://github.com/zoover"
   },
   "scripts": {
     "test": "mocha"
